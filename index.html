@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/9d8900ad3b.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="contents">
+            <div id="app-name">
+                <h1 id="title">Sign up</h1>
+            </div>
+            <form id="myForm">
+                <div class="input-field" id="nameField">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" name="name"placeholder="Name" id="name" autocomplete="off">
+                </div>
+                <div class="input-field">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="text" name="email"placeholder="E-mail" id="email" autocomplete="off">
+                </div>
+                <div class="input-field">
+                    <i class="fa-solid fa-key"></i>
+                    <input type="password" name="password" placeholder="Password" id="password" autocomplete="off">
+                </div>
+            </form>
+                <div id="button-field">
+                    <button id="signupBtn">Sign up</button>
+                    <button id="signinBtn"class="disable">Sign in</button>
+                </div>
+        </div>
+    </div>
+
+<!-------Signup/in-Button------->
+<script>
+    let signupBtnEl = document.getElementById("signupBtn")
+    let signinBtnEl = document.getElementById("signinBtn")
+    let nameFieldEl = document.getElementById("nameField")
+    let titleEl = document.getElementById("title")
+
+    signinBtnEl.onclick = function(){
+        nameFieldEl.style.maxHeight = 0
+        titleEl.innerHTML = "Sign in"
+        signupBtnEl.classList.add("disable")
+        signinBtnEl.classList.remove("disable")
+    }
+
+    signupBtnEl.onclick = function(){
+        nameFieldEl.style.maxHeight = "65px"
+        titleEl.innerHTML = "Sign up"
+        signinBtnEl.classList.add("disable")
+        signupBtnEl.classList.remove("disable")
+    }
+</script>
+
+<!-------Firebase-Database------->
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+    import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+    apiKey: "AIzaSyCnEjuzreX82CtmIh6iPhH6N-f8ZZSRbeo",
+    authDomain: "chat-app-database-5cb97.firebaseapp.com",
+    databaseURL: "https://chat-app-database-5cb97-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "chat-app-database-5cb97",
+    storageBucket: "chat-app-database-5cb97.appspot.com",
+    messagingSenderId: "365674042024",
+    appId: "1:365674042024:web:b14bdd56229c579e35e89d"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+signupBtn.addEventListener("click",(e) =>{
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    const form = document.getElementById("myForm")
+    
+
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        // Signed in 
+        setTimeout(function(){
+                return alert("User Created")
+            },)
+            form.reset()
+        const user = userCredential.user;
+
+        set(ref (database, `users/` + user.uid),{
+            name: name,
+            email: email
+        })
+        // ...
+    })
+    if (name === ""){
+        return alert("Input name")
+    } else if (email === ""){
+    return alert("Input e-mail")
+    } else if (password=== ""){
+    return alert("Input password")
+    }else if (password.length <= 5){
+    return alert("Password needs 6 characters and above")
+    }
+    //.catch((error) => {
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
+
+      // alert("Error")
+        // ..
+    //});
+})
+
+signinBtn.addEventListener("click", (e) =>{
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+
+            const dt = new Date();
+            update(ref (database, `users/` + user.uid),{
+            last_login: dt,
+            })
+            
+            alert("Signed in")
+        })
+        if (email === ""){
+        return alert("Input e-mail")
+        } else if (password=== ""){
+        return alert("Input password")
+        }else if (password.length <= 5){
+        return alert("Password needs 6 characters and above")
+        }
+    })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+           alert("Error")
+        
+}); 
+const user = auth.currentUser;
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/auth.user
+            const uid = user.uid;
+            // ...
+        } else {
+            // User is signed out
+            // ...
+        }
+        });
+
+//logout.addEventListener("click", (e) =>{
+    //signOut(auth).then(() => {
+  // Sign-out successful.
+        //alert("User Logged Out")
+//}).catch((error) => {
+  // An error happened.
+  //const errorCode = error.code;
+            //const errorMessage = error.message;
+            //alert("Error")
+//});
+//})
+</script>
+
+<script> src="script.js"</script>
+</body>
+</html>

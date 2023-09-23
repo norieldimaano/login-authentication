@@ -1,0 +1,116 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body{
+    background-color: #9067C6;
+}
+#contents{
+    background-image: url(images/login\ authentication.gif);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    height: 65vh;
+    border-radius: 15px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    position: absolute;
+}
+
+#title{
+    text-align: center;
+    color: #fff;
+    font-size: 45px;
+    margin-bottom: 45px;
+}
+
+.input-field{
+    display: flex;
+    background-color: #fff;
+    margin: -2px 0 25px 0;
+    align-items: center;
+    border-radius: 8px;
+    max-height: 65px;
+    transition: max-height 0.5s;
+    overflow: hidden;
+}
+.input-field input{
+    width: 19vw;
+    flex-direction: column;
+    padding: 15px 10px 15px 10px;
+    border: none;
+    outline: none;
+}
+
+.fa-solid{
+    margin-left: 10px;
+    color: #999;
+    opacity: 1;
+}
+#button-field{
+    display: flex;
+    flex-direction: row; 
+}
+
+#contents button{
+    margin: 0 5px 0 3px;
+    padding: 8px 35px;
+    border-radius: 25px;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    background-color: #F4989C;
+    transition: 0.5s;
+}
+
+#button-field .disable{
+    color: #555;
+    background-color: #eaeaea;
+}
+
+@media only screen and (max-width: 600px){
+    #contents{
+        width: 70vw;
+        height: 50vh;
+        border-radius: 15px;
+    }
+    
+    #title{
+        font-size: 25px;
+        margin-bottom: 45px;
+    }
+    
+    .input-field{
+        margin: -2px 0 10px 0;
+        align-items: center;
+        border-radius: 8px;
+    }
+    .input-field input{
+        width: 38vw;
+        flex-direction: column;
+        padding: 5px 0px 5px 0px;
+    }
+    
+    .fa-solid{
+        margin-right: 10px;
+    }
+    
+    #contents button{
+        margin: 10px 5px 0 3px;
+        padding: 3px 15px;
+        border-radius: 25px;
+        font-size: 10px;
+    }
+}
+
