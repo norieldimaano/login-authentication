@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <script src="https://kit.fontawesome.com/9d8900ad3b.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -105,30 +109,22 @@ signupBtn.addEventListener("click",(e) =>{
         })
         // ...
     })
-    if (name === ""){
-        return alert("Input name")
-    } else if (email === ""){
-    return alert("Input e-mail")
-    } else if (password=== ""){
-    return alert("Input password")
-    }else if (password.length <= 5){
-    return alert("Password needs 6 characters and above")
-    }
-    //.catch((error) => {
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-
-      // alert("Error")
+    
+    .catch((error) => {
+       const errorCode = error.code;
+       const errorMessage = error.message;
+        alert(errorMessage)
+       
         // ..
-    //});
+    });
 })
 
 signinBtn.addEventListener("click", (e) =>{
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
-    signInWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Signed in 
+            window.location.assign("index2.html")
             const user = userCredential.user;
 
             const dt = new Date();
@@ -137,34 +133,16 @@ signinBtn.addEventListener("click", (e) =>{
             })
             
             alert("Signed in")
-        })
-        if (email === ""){
-        return alert("Input e-mail")
-        } else if (password=== ""){
-        return alert("Input password")
-        }else if (password.length <= 5){
-        return alert("Password needs 6 characters and above")
-        }
-    })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-           alert("Error")
         
-}); 
-const user = auth.currentUser;
+        })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            alert(errorMessage)
+    });
+});
+        
 
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/auth.user
-            const uid = user.uid;
-            // ...
-        } else {
-            // User is signed out
-            // ...
-        }
-        });
 
 //logout.addEventListener("click", (e) =>{
     //signOut(auth).then(() => {
