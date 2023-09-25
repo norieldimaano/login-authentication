@@ -68,9 +68,9 @@ body{
     padding: 8px 35px;
     border-radius: 25px;
     border: none;
-    color: #fff;
+    color: black;
     font-weight: bold;
-    background-color: #F4989C;
+    background-color: #58FCEC;
     transition: 0.5s;
 }
 
@@ -114,6 +114,7 @@ body{
 
 @media only screen and (max-width: 600px){
     #contents{
+        background-image: url(images/mobile-background.png);
         width: 100%;
         height:100%;
         border-radius: 0;
